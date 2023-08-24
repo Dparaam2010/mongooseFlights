@@ -25,6 +25,7 @@ const flightSchema = new Schema({
         enum: ['SGVA', 'LB', 'OIA', 'LAX', 'SAN']
     },
     flightNo: {
+        required: true,
         type: Number,
         min: 10,
         max: 9999

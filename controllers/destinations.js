@@ -5,6 +5,7 @@ module.exports = {
 }
 
 async function create(req, res) {
+    console.log('hello')
     const flight = await Flight.findById(req.params.id)
     flight.destinations.push(req.body)
     flight.destinations.sort(function(a,b){

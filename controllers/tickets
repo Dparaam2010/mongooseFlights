@@ -1,0 +1,28 @@
+const Ticket = require('../models/ticket')
+const Flight = require('../models/flight')
+
+
+module.exports = {
+    new: newTicket,
+    create,
+    addTicketToFlight
+}
+
+async function addTicketToFlight(req,res) {
+    
+}
+
+async function newTicket (req,res) {
+    
+}
+
+async function create(req, res) {
+    try{
+        req.body.flight = req.params.id
+        await Ticket.create(req.body)
+     
+    res.redirect(`/flights/${req.params.id}`)
+        } catch (err) {
+            console.log(err)
+    }
+}
