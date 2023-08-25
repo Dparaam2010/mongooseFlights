@@ -5,24 +5,37 @@ const Flight = require('../models/flight')
 module.exports = {
     new: newTicket,
     create,
-    addTicketToFlight
+    delete: deleteTicket
 }
 
-async function addTicketToFlight(req,res) {
-    
-}
+
 
 async function newTicket (req,res) {
-    
+    const id = req.params.id
+    console.log("hello", id)
+    res.render('tickets/new', {id})
 }
 
 async function create(req, res) {
-    try{
-        req.body.flight = req.params.id
+    console.log("hello", req.params.id)
+    try {
+         req.body.flight = req.params.id
         await Ticket.create(req.body)
-     
-    res.redirect(`/flights/${req.params.id}`)
-        } catch (err) {
-            console.log(err)
+        res.redirect(`/flights/${req.params.id}`)
+    } catch (err) {
+        console.log(err)
+        res.redirect(`/flights/${req.params.id}/tickets/new`)
+    } 
+}
+
+async function deleteTicket(req, res) {
+    const ticket = await Ticket.findById(req.params.id)
+    const flight = ticket.flight
+    try {
+        await Ticket.findByIdAndDelete(req.params.id)
+        res.redirect(`/flights/${flight._id}`)
+    } catch(err) {
+        console.log(err)
+        res.redirct(`/flights/${flight._id}`);
     }
 }
